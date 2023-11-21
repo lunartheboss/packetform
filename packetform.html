@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Paket Formu</title>
+  <style>
+    /* CSS ile basit bir stil */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .package {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .package label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .package input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      /* Glowing effect */
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+      transition: box-shadow 0.3s ease-in-out, color 0.5s;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .package input[type="checkbox"]:hover {
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+    }
+
+    .submit-btn {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+
+    /* Animation for changing RGB glowing effect */
+    @keyframes glowing {
+      0% {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+      }
+      100% {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      }
+    }
+
+    .package input[type="checkbox"]:checked {
+      animation: glowing 1.5s infinite;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Paket Formu</h1>
+    <form id="packageForm">
+      <div class="package">
+        <label for="ortasaha">ORTASAHA PAKET (Kimmich)</label>
+        <input type="checkbox" id="ortasaha" name="ortasaha" value="ORTASAHA PAKET (Kimmich)">
+      </div>
+
+      <div class="package">
+        <label for="santrafor">SANTRAFOR PAKET (Lewandowski)</label>
+        <input type="checkbox" id="santrafor" name="santrafor" value="SANTRAFOR PAKET (Lewandowski)">
+      </div>
+
+      <div class="package">
+        <label for="defans">DEFANS PAKET (Virgil)</label>
+        <input type="checkbox" id="defans" name="defans" value="DEFANS PAKET (Virgil)">
+      </div>
+
+      <div class="package">
+        <label for="kaleci">KALECİ PAKET (Ederson)</label>
+        <input type="checkbox" id="kaleci" name="kaleci" value="KALECİ PAKET (Ederson)">
+      </div>
+
+      <input type="submit" value="Gönder" class="submit-btn">
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('packageForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const formData = {};
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      checkboxes.forEach(checkbox => {
+        formData[checkbox.name] = checkbox.value;
+      });
+
+      const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE'; // Replace with your Discord webhook URL
+
+      try {
+        const response = await fetch(webhookURL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            content: `New Form Submission:\n${JSON.stringify(formData, null, 2)}`
+          })
+        });
+
+        if (response.ok) {
+          alert('Answers sent to Discord webhook successfully!');
+        } else {
+          alert('Error sending answers to Discord webhook');
+        }
+      } catch (error) {
+        console.error('Error sending answers to Discord webhook:', error);
+        alert('Error sending answers to Discord webhook');
+      }
+    });
+  </script>
+</body>
+
+</html>
