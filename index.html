@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <style>
+    /* CSS for a simple style */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      margin-bottom: 20px;
+      width: 250px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      /* Glowing effect */
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    input[type="text"]:hover,
+    input[type="password"]:hover,
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+    }
+
+    .submit-btn {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+
+    /* Animation for changing RGB glowing effect */
+    @keyframes glowing {
+      0% {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+      }
+      100% {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      }
+    }
+
+    input[type="submit"]:hover,
+    input[type="submit"]:focus {
+      animation: glowing 1.5s infinite;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <form class="login-form" id="loginForm">
+      <div class="input-field">
+        <input type="text" placeholder="Username" id="username" required>
+      </div>
+
+      <div class="input-field">
+        <input type="password" placeholder="Password" id="password" required>
+      </div>
+
+      <input type="submit" value="Login" class="submit-btn">
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Example account credentials (not secure for production)
+      const accounts = [
+        { username: 'admin', password: 'admin123' },
+        { username: 'user', password: 'user123' },
+        { username: 'john_doe', password: 'qwerty' },
+        { username: 'jane_smith', password: 'password' },
+        { username: 'test_user', password: 'test123' },
+        { username: 'zeus', password: 'thunder123' },
+        { username: 'lunar', password: 'moonlight321' }
+        // Add more accounts here...
+      ];
+
+      // Check the entered credentials against the example accounts
+      const matchedAccount = accounts.find(account => account.username === username && account.password === password);
+      if (matchedAccount) {
+        alert('Login Successful!');
+        window.location.href = 'packetform.html'; // Redirect to packetform.html
+      } else {
+        alert('Invalid username or password. Please try again.');
+      }
+    });
+  </script>
+</body>
+
+</html>
